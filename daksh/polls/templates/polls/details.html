@@ -1,0 +1,11 @@
+{% extends 'polls/base.html' %}
+    
+    {% block content %}
+    <div>
+        <ul>
+            <li>{{ choice_list.question }}</li>
+            <li>{{ choice_list.choice_text }}</li>
+            <li>{{ choice_list.votes }}</li>
+        </ul>
+    </div>
+    {% endblock %}
