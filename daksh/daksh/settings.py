@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['0.0.0.0','192.168.29.96','127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    'sat.apps.SatConfig',
     'website.apps.WebsiteConfig',
     'polls.apps.PollsConfig',
     'django.contrib.admin',

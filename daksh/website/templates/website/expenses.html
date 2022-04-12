@@ -21,11 +21,19 @@
     <div>
         <h1>table</h1>
     </div> -->
+    
+    <form action="/website/expenses/" method="post">
+        {% csrf_token %}
+        <label for="expense"></label>
+        <input id="expense" name="expense" placeholder="Expenses" type="number">
+    
+        <label for="des"></label>
+        <textarea id="des" name="des" placeholder="Reason for the Expense">
+        </textarea>
 
-    <div id="vm">
-        <salary></salary>
+        <button type="submit" value="submit">Add</button>
 
-    </div>
+    </form>
 
     <script type="text/javascript" src="{% static 'website/main.js' %}"></script>
     

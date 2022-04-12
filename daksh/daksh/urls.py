@@ -22,5 +22,6 @@ urlpatterns = [
     path("",views.index,name="index"),
     path('polls/',include('polls.urls')),
     path('website/',include('website.urls')),
+    path('sat/',include('sat.urls')),
     path('admin/', admin.site.urls),
 ]
