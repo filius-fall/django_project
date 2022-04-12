@@ -7,6 +7,9 @@ from django.shortcuts import get_object_or_404,render
 def index(request):
     return render(request,'sat/index.html')
 
+def test(request):
+    return render(request,'sat/test.html')
+
 
 def sat_api(request):
     data = [
