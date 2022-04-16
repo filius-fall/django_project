@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/favicon-16x16.png' %}">
+    <link rel="manifest" href="/site.webmanifest">
+    <title>Lobby</title>
+</head>
+<body>
+    
+    <h1>Its chat</h1>
+
+    <form id="form">
+        <input type="text" name="message">
+    </form>
+
+    <script type="text/javascript">
+        let url = `ws://${window.location.host}/ws/socket-server/`;
+        const chatSocket = new WebSocket(url);
+        chatSocket.onmessage = function(e){
+            let data = JSON.parse(e.data);
+            console.log('DATA:', data);
+
+        }
+
+        let form_data = document.getElementById('form');
+        form_data.addEventListener('submt',(e)=>{
+            e.preventDefault();
+            let message = e.target.message.value
+            chatSocket.send(JSON.stringify({
+                'message': message
+            }));
+            form_data.reset()
+        })
+    </script>
+</body>
+</html>

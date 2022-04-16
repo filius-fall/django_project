@@ -10,53 +10,27 @@
     <!DOCTYPE HTML>
 <html>
 <head>
-<script>
-window.onload = function () {
-
-var dps = []; // dataPoints
-var chart = new CanvasJS.Chart("chartContainer", {
-	title :{
-		text: "Dynamic Data"
-	},
-	data: [{
-		type: "line",
-		dataPoints: dps
-	}]
-});
-
-var xVal = 0;
-var yVal = 100; 
-var updateInterval = 1000;
-var dataLength = 40; // number of dataPoints visible at any point
-
-var updateChart = function (count) {
-
-	count = count || 1;
-
-	for (var j = 0; j < count; j++) {
-		yVal = yVal +  Math.round(5 + Math.random() *(-5-5));
-		dps.push({
-			x: xVal,
-			y: yVal
-		});
-		xVal++;
-	}
-    console.log(dps);
-	if (dps.length > dataLength) {
-		dps.shift();
-	}
-
-	chart.render();
-};
-
-updateChart(dataLength);
-// setInterval(function(){updateChart()}, updateInterval);
-
-}
-</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
-<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+	{% load static %}
+	<canvas id="lineChart" class="chart" width="900" height="400"></canvas>
+
+<!-- <div id="chartContainer" style="height: 300px; width: 100%;"></div> -->
+<div class="container m-5 p-5">
+	<button id="chan" class="btn btn-primary">CLick</button>
+</div>
+
+
+
+
+
+
+
+
+
+<script src="{% static 'sat/js/index.js' %}"></script>
+
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
 </html>
