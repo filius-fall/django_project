@@ -77,18 +77,24 @@
         function send_message(){
             
             var form_data = new FormData(form_data_raw);
-            var a = []
+            var a = {}
             for(const [key, value] of form_data.entries()) {
-                console.log(key, value);
+                // console.log(key, value);
                 if(key != 'csrfmiddlewaretoken'){
-                    a.push(value);
+                    a[key]=value
                 }
             }
+            console.log(a)
             chatSocket.send(JSON.stringify({
                 'message':a
             }))
-            console.log('MESSAGE SENT SUCCESFULLy')
+            console.log('MESSAGE SENT SUCCESFULLy from JSSSSSSSSSSSSSSSSS')
         }
+
+        form_data_raw.addEventListener('submit', function(e){
+            e.preventDefault();
+            send_message();
+        })
         function test_interval(){
             k = Math.random()
             console.log(k)
