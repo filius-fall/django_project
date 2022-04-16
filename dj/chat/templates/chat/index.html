@@ -20,9 +20,13 @@
             <input type="submit" value="Submit">
         </form>
 
+        <canvas id="lineChart" class="chart" width="900" height="400"></canvas>
 
 
 
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
         // document.querySelector('#room-name-input').focus();
@@ -57,6 +61,18 @@
             console.log(e)
             console.error('chat room closed unexpectedly')
         }
+        chatSocket.onmessage = function(e){
+            const data = JSON.parse(e.data)
+            console.log('MEssage recieved')
+            o = Math.random()
+            s = Math.random()
+            values = [['Date', 'Amount'],[o, s]]
+            lineChart.data.labels = ['Date', 'Amount']
+            lineChart.data.datasets[0].data = [o, s]
+            lineChart.update()
+            console.log(values)
+            console.log('UPDATE')
+        }
         var form_data_raw = document.getElementById('dj_form');
         function send_message(){
             
@@ -73,26 +89,36 @@
             }))
             console.log('MESSAGE SENT SUCCESFULLy')
         }
-        form_data_raw.addEventListener('submit', function(e){
-            e.preventDefault();
-            send_message();
-        })
-
-        // document.querySelector('#chat-message-input').focus()
-        // document.querySelector('#chat-message-input').onkeyup = function(e){
-        //     if(e.keycode === 13){
-        //         document.querySelector('#chat-message-submit').click()
-        //     }
-        // }
-        // document.querySelector('#chat-message-submit').onclick = function(e){
-        //     const messageV = document.querySelector('#chat-message-input')
-        //     const v = messageV.value
-        //     console.log(v)
-        //     chatSocket.send(JSON.stringify({
-        //         'message':v
-        //     }))
-        //     messageV.value = ''
-        // }
+        function test_interval(){
+            k = Math.random()
+            console.log(k)
+            chatSocket.send(JSON.stringify({
+                'message':k
+            }))
+        }
+        // setInterval(test_interval, 2000)
+        values = [[1,2,3,4,5,6],[11,22,33,44,55,66]]
+        var ctx = document.getElementById("lineChart").getContext('2d');
+        // console.log(values[0])
+        var lineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: values[0],
+                datasets: [
+                    {
+                        label: "Data Points",
+                        data: values[1],
+                        fill: false,
+                        borderColor: 'rgb(255, 99, 132)',
+                        lineTension: 0.1 
+                    }
+                    
+                ]
+            },
+            options:{
+                responsive: false,
+            }
+        });
     </script>
     </body>
 </html>

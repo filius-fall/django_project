@@ -3,6 +3,7 @@ from django.http import HttpResponse
 
 from .db_actions import set_values, get_values, get_all_keys
 from .forms import ExpensesForm
+from .consumers import ChatConsumer
 
 import json
 # Create your views here.
@@ -16,7 +17,7 @@ def index(request):
             print('FORM IS VALID')
             data = form.cleaned_data
             print(data)
-            # set_values(data['name'],data['message'])
+            print('AFTER SENDING MESSAGE')
             return HttpResponse(json.dumps({'status':'success'}), content_type='application/json')
     return render(request,'chat/index.html',{'form':form})
 
@@ -40,3 +41,8 @@ def push_data_to_redis(request):
         print(data)
         set_values(data['name'],data['message'])
         return HttpResponse(json.dumps({'status':'success'}), content_type='application/json')
+
+
+def message_from_consumer():
+    k = ChatConsumer()
+    k.send_message({'message':'test message for test from consumer'})
