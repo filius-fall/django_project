@@ -83,6 +83,7 @@
         form_data_raw.addEventListener('submit', function(e){
             e.preventDefault();
             send_message();
+            form_data_raw.reset();
         })
         function test_interval(){
             k = Math.random()

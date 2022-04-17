@@ -10,7 +10,10 @@ class ChatConsumer(WebsocketConsumer):
         self.accept()
         print('CONNECTED')
         data = hgetall_values()
-        d = sorted(data, key=lambda i: i['date'])
+        for i in data:
+
+            i['timestamp'] = datetime.fromisoformat(i['date']).timestamp()
+        d = sorted(data, key=lambda k: k['timestamp'])
         print(d)
         self.send(text_data=json.dumps(d))
         
@@ -21,12 +24,13 @@ class ChatConsumer(WebsocketConsumer):
     def receive(self,text_data):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
-        d = sorted(message, key=lambda i: i['date'])
         print("SETting VLAUES")
         hset_values(message)
-        print("TEXT_DATA PRINTEDDDDDDDDDDDDDDDDDDDD",d)
+        
+        # d = sorted(message, key=lambda k: k['timestamp'])
+        # print("TEXT_DATA PRINTEDDDDDDDDDDDDDDDDDDDD",d)
         self.send(text_data=json.dumps({
-            'message':d
+            'message':message
         }))
 
     def send_message(self,event):
